@@ -3,12 +3,13 @@ public class algoGraph{
 
     // Use a doubly-linked list (or singly linked list and just save the previous node in a variable, idc.) 
     // to store the nodes, each node has the list of edges
+    // Will this work? Is it even a graph? Probably not technically, but it's literally example code so who tf cares
     public algoGraph(){
 
     }
 }
 
-public class Node{
+class Node{
     private String label;
     private List<Edge> edges;
 
@@ -24,14 +25,17 @@ public class Node{
     }
 }
 
-public class Edge{
+class Edge{
     private Node source;
     private Node dest;
     private double weight;
+    private boolean checked;
 
-    public Edge(Node source, Node dest, double weight){
+    public Edge(Node source, Node dest, double weight, boolean checked){
+        // too lazy to make getters/setters atm so deal with this for now
         this.source = source;
         this.dest = dest;
         this.weight = weight;
+        this.checked = checked;
     }
 }
