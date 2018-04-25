@@ -13,6 +13,8 @@ public class algoGraph{
     }
 
     //more methods coming soon^tm
+
+
 }
 
 private class Vertex{
@@ -20,14 +22,6 @@ private class Vertex{
 
     public Node(int label){
         setLabel(label);
-    }
-
-    public void setLabel(String s){
-        label = s;
-    }
-
-    public String getLabel(){
-        return label;
     }
 
     @Override
@@ -41,6 +35,18 @@ private class Vertex{
 
     @Override
     public int hashCode(){
+        return label;
+    }
+
+    // =======================================================
+    // ACCESSORS BOI
+    // =======================================================
+    
+    private void setLabel(int l){
+        this.label = l;
+    }
+
+    public int getLabel(){
         return label;
     }
 }
