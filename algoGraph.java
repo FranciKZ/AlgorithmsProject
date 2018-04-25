@@ -1,4 +1,4 @@
-public class algoGraph{
+public class AlgoGraph{
     private int vertexCount = 0;
     private Set<Vertex> vertices;
     private Set<Edge> edges;
@@ -6,7 +6,7 @@ public class algoGraph{
     // Hashsets and hashmaps will allow for speedier access
     // gotta go fest *insert sanic meme*
 
-    public algoGraph{
+    public AlgoGraph(){
         vertices = new HashSet<>();
         edges = new HashSet<>();
         adjList = new HashMap<>();
