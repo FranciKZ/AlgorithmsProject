@@ -86,7 +86,7 @@ private class Vertex{
     }
 
     // =======================================================
-    // ACCESSORS BOI
+    // ACCESSOR BOIS
     // =======================================================
     
     private void setLabel(int l){
