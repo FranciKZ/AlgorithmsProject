@@ -3,9 +3,8 @@ public class algoGraph{
     private Set<Vertex> vertices;
     private Set<Edge> edges;
     private Map<Vertex, Set<Edge>> adjList;
-    // Use a doubly-linked list (or singly linked list and just save the previous node in a variable, idc.) 
-    // to store the nodes, each node has the list of edges
-    // Will this work? Is it even a graph? Probably not technically, but it's literally example code so who tf cares
+    
+
     public algoGraph{
         vertices = new HashSet<>();
         edges = new HashSet<>();
@@ -13,8 +12,54 @@ public class algoGraph{
     }
 
     //more methods coming soon^tm
+    public boolean addVertex(Vertex v){
+        return vertices.add(v);
+    }
 
+    public boolean removeVertex(Vertex v){
+        return vertices.remove(v);
+    }
 
+    public boolean addEdge(Edge e){
+        if (!edges.add(e)) return false;
+
+        adjList.putIfAbsent(e.getSource(), new HashSet<>());
+        adjList.putIfAbsent(e.getDest(), new HashSet<>());
+
+        adjList.get(e.getSource()).add(e);
+        adjList.get(e.getDest()).add(e);
+
+        return true;
+    }
+
+    public boolean removeEdge(Edge e){
+        if(!edge.remove(e)) return false;
+
+        Set<Edge> edgesOfSource = adjList.get(e.getSource());
+        Set<Edge> edgesOfDest = adjList.get(e.getDest());
+
+        if(edgesOfSource != null) edgesOfSource.remove(e);
+        if(edgesOfDest != null) edgesOfDest.remove(e);
+
+        return true;
+    }
+
+    public Set<Vertex> getAdjVertices(Vertex v){
+        return adjList.get(v).stream().map(e -> e.getSource().equals(v) ? e.getDest() : e.getSource())
+                .collect(Collectors.toSet());
+    }
+
+    public Set<Vertex> getVertices(){
+        return vertices;
+    }
+
+    public Set<Edge> getEdges(){
+        return edges;
+    }
+
+    public Map<Vertex, Set<Edge>> getAdjList(){
+        return adjList;
+    }
 }
 
 private class Vertex{
