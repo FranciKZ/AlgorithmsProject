@@ -1,5 +1,5 @@
 public class algoGraph{
-    private int nodeCount = 0;
+    private int vertexCount = 0;
     private Set<Vertex> vertices;
     private Set<Edge> edges;
     private Map<Vertex, Set<Edge>> adjList;
@@ -13,10 +13,12 @@ public class algoGraph{
 
     //more methods coming soon^tm
     public boolean addVertex(Vertex v){
+        vertexCount++;
         return vertices.add(v);
     }
 
     public boolean removeVertex(Vertex v){
+        vertexCount--;
         return vertices.remove(v);
     }
 
