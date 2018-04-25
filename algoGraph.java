@@ -3,7 +3,8 @@ public class algoGraph{
     private Set<Vertex> vertices;
     private Set<Edge> edges;
     private Map<Vertex, Set<Edge>> adjList;
-    
+    // Hashsets and hashmaps will allow for speedier access
+    // gotta go fest *insert sanic meme*
 
     public algoGraph{
         vertices = new HashSet<>();
@@ -23,11 +24,15 @@ public class algoGraph{
     }
 
     public boolean addEdge(Edge e){
+         // first check if edge can be added
         if (!edges.add(e)) return false;
 
+        // If the source and destination nodes are not present
+        // Add them to the adjacency list
         adjList.putIfAbsent(e.getSource(), new HashSet<>());
         adjList.putIfAbsent(e.getDest(), new HashSet<>());
 
+        // Then add the edge
         adjList.get(e.getSource()).add(e);
         adjList.get(e.getDest()).add(e);
 
@@ -35,11 +40,14 @@ public class algoGraph{
     }
 
     public boolean removeEdge(Edge e){
-        if(!edge.remove(e)) return false;
+        // first check if edge can be removed
+        if(!edges.remove(e)) return false;
 
+        // Make a set of the edges for the source and destination nodes assigned to 'e'
         Set<Edge> edgesOfSource = adjList.get(e.getSource());
         Set<Edge> edgesOfDest = adjList.get(e.getDest());
 
+        // As long as those are not null, add the new edge
         if(edgesOfSource != null) edgesOfSource.remove(e);
         if(edgesOfDest != null) edgesOfDest.remove(e);
 
@@ -86,7 +94,7 @@ private class Vertex{
     }
 
     // =======================================================
-    // ACCESSOR BOIS
+    // ACCESSOR BOIS ฅ^•ﻌ•^ฅ
     // =======================================================
     
     private void setLabel(int l){
@@ -107,7 +115,6 @@ private class Edge{
     private static final boolean DEFAULT_CHECKED = false;
 
     public Edge(Vertex source, Node dest){
-        // too lazy to make getters/setters atm so deal with this for now
         this(source, dest, DEFAULT_WEIGHT, DEFAULT_CHECKED);
     }
     public Edge(Vertex source, Vertex dest, double weight, boolean checked){
@@ -129,14 +136,14 @@ private class Edge{
     @Override
     public int hashCode(){
         int result = source.hashCode();
-        //multiplying by 19 (or just any number, 2019 is when we're free :') ) ensures unique hashcodes
+        //multiplying by 19 (or just any number, 2019 is when we're free though :') ) should ensure unique hashcodes
         result = 19 * result + dest.hashCode();
         result = 19 * result + weight;
         return result;
     }
 
     // ===========================================================================
-    // Accessors
+    // ACCESSOR BOIS ฅ^•ﻌ•^ฅ
     // ===========================================================================
     private void setSource(Vertex s){
         this.source = s;
