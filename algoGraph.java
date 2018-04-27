@@ -37,7 +37,8 @@ public class AlgoGraph{
 
         // Then add the edge
         adjList.get(e.getSource()).add(e);
-        adjList.get(e.getDest()).add(e);
+        // Commenting this out seems to solve the problem
+        //adjList.get(e.getDest()).add(e);
 
         return true;
     }
@@ -111,16 +112,18 @@ class Vertex{
 
 class Edge{
     private Vertex source;
+    private String label;
     private Vertex dest;
     private int weight;
     private boolean checked;
     private static final int DEFAULT_WEIGHT = 1;
     private static final boolean DEFAULT_CHECKED = false;
 
-    public Edge(Vertex source, Vertex dest){
-        this(source, dest, DEFAULT_WEIGHT, DEFAULT_CHECKED);
+    public Edge(String label, Vertex source, Vertex dest){
+        this(label, source, dest, DEFAULT_WEIGHT, DEFAULT_CHECKED);
     }
-    public Edge(Vertex source, Vertex dest, int weight, boolean checked){
+    public Edge(String label, Vertex source, Vertex dest, int weight, boolean checked){
+        setLabel(label);
         setSource(source);
         setDest(dest);
         setWeight(weight);
@@ -153,6 +156,10 @@ class Edge{
         this.source = s;
     }
 
+    private void setLabel(String s){
+        this.label = s;
+    }
+
     private void setDest(Vertex d){
         this.dest = d;
     }
@@ -171,6 +178,10 @@ class Edge{
 
     public Vertex getDest(){
         return dest;
+    }
+
+    public String getLabel(){
+        return label;
     }
 
     public double getWeight(){

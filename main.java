@@ -8,9 +8,9 @@ class Main{
         Vertex v3 = new Vertex(3);
         Vertex v4 = new Vertex(4);
 
-        Edge e1 = new Edge(v1, v2);
-        Edge e2 = new Edge(v3, v4);
-        Edge e3 = new Edge(v2, v4);
+        Edge e1 = new Edge("e1", v1, v2);
+        Edge e2 = new Edge("e2", v3, v4);
+        Edge e3 = new Edge("e3", v2, v4);
 
         g.addEdge(e1);
         g.addEdge(e2);
@@ -24,13 +24,13 @@ class Main{
         //System.out.println(g.getAdjList().get(e3.getSource()).size());
 
         for (Edge e : g.getAdjList().get(e3.getSource())){
-            System.out.println(e.getSource().getLabel());
-            System.out.println(e.getDest().getLabel());
+            System.out.println(e.getLabel());
         }
     
         //System.out.println(g.getAdjList().get(e3.getSource()));
         
-        //Vertex v = p.routeToTake(g.getAdjList().get(e1.getSource()));
-        //System.out.println(v.getLabel());
+        // the problem is 
+        Vertex v = p.routeToTake(g.getAdjList().get(e3.getSource()));
+        System.out.println(v.getLabel());
     }
 }
