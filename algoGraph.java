@@ -1,14 +1,17 @@
+import java.util.stream.Collectors;
+import java.util.*;
+
 public class AlgoGraph{
     private int vertexCount = 0;
-    private Set<Vertex> vertices;
-    private Set<Edge> edges;
-    private Map<Vertex, Set<Edge>> adjList;
-    // Hashsets and hashmaps will allow for speedier access
-    // gotta go fest *insert sanic meme*
+    private List<Vertex> vertices;
+    private List<Edge> edges;
+    private Map<Vertex, List<Edge>> adjList;
 
     public AlgoGraph(){
-        vertices = new HashSet<>();
-        edges = new HashSet<>();
+        // hashmap will allow for speedier access
+        // gotta go fest *insert sanic meme*
+        vertices = new ArrayList<Vertex>();
+        edges = new ArrayList<Edge>();
         adjList = new HashMap<>();
     }
 
@@ -29,8 +32,8 @@ public class AlgoGraph{
 
         // If the source and destination nodes are not present
         // Add them to the adjacency list
-        adjList.putIfAbsent(e.getSource(), new HashSet<>());
-        adjList.putIfAbsent(e.getDest(), new HashSet<>());
+        adjList.putIfAbsent(e.getSource(), new ArrayList<>());
+        adjList.putIfAbsent(e.getDest(), new ArrayList<>());
 
         // Then add the edge
         adjList.get(e.getSource()).add(e);
@@ -43,39 +46,39 @@ public class AlgoGraph{
         // first check if edge can be removed
         if(!edges.remove(e)) return false;
 
-        // Make a set of the edges for the source and destination nodes assigned to 'e'
-        Set<Edge> edgesOfSource = adjList.get(e.getSource());
-        Set<Edge> edgesOfDest = adjList.get(e.getDest());
+        // Make a set of the edges for the source and destination nodes associated with 'e'
+        List<Edge> edgesOfSource = adjList.get(e.getSource());
+        List<Edge> edgesOfDest = adjList.get(e.getDest());
 
-        // As long as those are not null, add the new edge
+        // As long as those are not null, remove the edge
         if(edgesOfSource != null) edgesOfSource.remove(e);
         if(edgesOfDest != null) edgesOfDest.remove(e);
 
         return true;
     }
 
-    public Set<Vertex> getAdjVertices(Vertex v){
+    public List<Vertex> getAdjVertices(Vertex v){
         return adjList.get(v).stream().map(e -> e.getSource().equals(v) ? e.getDest() : e.getSource())
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
-    public Set<Vertex> getVertices(){
+    public List<Vertex> getVertices(){
         return vertices;
     }
 
-    public Set<Edge> getEdges(){
+    public List<Edge> getEdges(){
         return edges;
     }
 
-    public Map<Vertex, Set<Edge>> getAdjList(){
+    public Map<Vertex, List<Edge>> getAdjList(){
         return adjList;
     }
 }
 
-private class Vertex{
+class Vertex{
     private int label;
 
-    public Node(int label){
+    public Vertex(int label){
         setLabel(label);
     }
 
@@ -84,8 +87,8 @@ private class Vertex{
         if(this == obj) return true;
         if(!(obj instanceof Vertex)) return false;
 
-        Vertex _obj = (Vertex) obj;
-        return _obj.label == label;
+        Vertex obj1 = (Vertex) obj;
+        return obj1.label == label;
     }
 
     @Override
@@ -106,18 +109,18 @@ private class Vertex{
     }
 }
 
-private class Edge{
-    private Node source;
+class Edge{
+    private Vertex source;
     private Vertex dest;
-    private double weight;
+    private int weight;
     private boolean checked;
-    private static final double DEFAULT_WEIGHT = 1;
+    private static final int DEFAULT_WEIGHT = 1;
     private static final boolean DEFAULT_CHECKED = false;
 
-    public Edge(Vertex source, Node dest){
+    public Edge(Vertex source, Vertex dest){
         this(source, dest, DEFAULT_WEIGHT, DEFAULT_CHECKED);
     }
-    public Edge(Vertex source, Vertex dest, double weight, boolean checked){
+    public Edge(Vertex source, Vertex dest, int weight, boolean checked){
         setSource(source);
         setDest(dest);
         setWeight(weight);
@@ -129,8 +132,9 @@ private class Edge{
         if(this == obj) return true;
         if (!(obj instanceof Edge)) return false;
 
-        return _obj.source.equals(source) && _obj.dest.equals(dest)
-                && _obj.weight == weight && _obj.checked == checked;
+        Edge e = (Edge) obj;
+        return e.source.equals(source) && e.dest.equals(dest)
+                && e.weight == weight && e.checked == checked;
     }
 
     @Override
@@ -153,7 +157,7 @@ private class Edge{
         this.dest = d;
     }
 
-    private void setWeight(double w){
+    private void setWeight(int w){
         this.weight = w;
     }
 
