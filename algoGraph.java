@@ -63,6 +63,16 @@ public class AlgoGraph{
                 .collect(Collectors.toList());
     }
 
+    public int checkCount(Vertex v){
+        int result = 0;
+        
+        for(Edge e : adjList.get(v)){
+            if(e.isChecked)
+                result++
+        }
+        return result;
+    }
+
     public List<Vertex> getVertices(){
         return vertices;
     }
@@ -114,15 +124,20 @@ class Edge{
     private Vertex source;
     private String label;
     private Vertex dest;
-    private int weight;
+    private double weight;
     private boolean checked;
-    private static final int DEFAULT_WEIGHT = 1;
+    private static final double DEFAULT_WEIGHT = 1;
     private static final boolean DEFAULT_CHECKED = false;
 
     public Edge(String label, Vertex source, Vertex dest){
         this(label, source, dest, DEFAULT_WEIGHT, DEFAULT_CHECKED);
     }
-    public Edge(String label, Vertex source, Vertex dest, int weight, boolean checked){
+
+    public Edge(String label, Vertex source, Vertex dest, double weight){
+        this(label, source, dest, weight, DEFAULT_CHECKED);
+    }
+
+    public Edge(String label, Vertex source, Vertex dest, double weight, boolean checked){
         setLabel(label);
         setSource(source);
         setDest(dest);
@@ -141,8 +156,8 @@ class Edge{
     }
 
     @Override
-    public int hashCode(){
-        int result = source.hashCode();
+    public double hashCode(){
+        double result = source.hashCode();
         //multiplying by 19 (or just any number, 2019 is when we're free though :') ) should ensure unique hashcodes
         result = 19 * result + dest.hashCode();
         result = 19 * result + weight;
@@ -164,7 +179,7 @@ class Edge{
         this.dest = d;
     }
 
-    private void setWeight(int w){
+    private void setWeight(double w){
         this.weight = w;
     }
 
