@@ -9,7 +9,7 @@ public class PathFinder{
     // i.e. (List = {A, B, C, D} meaning the path is A -> B -> C -> D)
     public List<Vertex> findPath(AlgoGraph g, Vertex start, double dist){
         List<Vertex> path = new ArrayList<>();
-        Edge e = new Edge();
+        Edge e = null;
         Vertex curVert = start;
         Edge lastEdgeTaken = null;
         double curDist = 0;
@@ -35,13 +35,13 @@ public class PathFinder{
                     } 
                 }
             }
-
             // no unchecked edges from this vertex
             // revert to the last vertex
             else{
                 curVert = lastEdgeTaken.getSource();
             }  
         }
+        return null;
     }
 
     // modified binary sort thing
@@ -55,29 +55,31 @@ public class PathFinder{
         int checkCount = 0;
 
         for (Edge edge : edges){
-            if(edge.isChecked)
+            if(edge.isChecked())
                 checkCount++;
         }
-        if(edges.size() == 1 && edges.get(0).isChecked == false){
-            edges.get(0).setChecked(true);
-            return edges.get(0);
-        }
-
-        else if (edges.size() != 0 && checkCount != edges.size()){
-            while(low <= high){
-                    // generate the random each time. Will probably change this up but is here to make sure we know to do it 
-                    // on every loop
-                int n = rand.nextInt(51);
-                mid = low + (high - low) / 2;
-                if(n >= 25)
-                    high = mid - 1;                                  
-                else
-                    low = mid + 1;
+        if(checkCount != edges.size()){
+            if(edges.size() == 1 && edges.get(0).isChecked() == false){
+                edges.get(0).setChecked(true);
+                return edges.get(0);
             }
-            if (edges.get(mid).isChecked == false){
-                edges.setChecked(true);
-                return edges.get(mid);
-              }
+
+            else if (edges.size() != 0){
+                while(low <= high){
+                        // generate the random each time. Will probably change this up but is here to make sure we know to do it 
+                        // on every loop
+                    int n = rand.nextInt(51);
+                    mid = low + (high - low) / 2;
+                    if(n >= 25)
+                        high = mid - 1;                                  
+                    else
+                        low = mid + 1;
+                }
+                if (edges.get(mid).isChecked() == false){
+                    edges.get(mid).setChecked(true);
+                    return edges.get(mid);
+                }
+            }
         }   
         return null;
     }

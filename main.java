@@ -28,7 +28,7 @@ class Main{
             System.out.println(e.getLabel());
         }
 
-        Vertex v = p.routeToTake(g.getAdjList().get(e1.getSource()));
-        System.out.println(v.getLabel());
+        //Vertex v = p.routeToTake(g.getAdjList().get(e1.getSource()));
+        //System.out.println(v.getLabel());
     }
 }

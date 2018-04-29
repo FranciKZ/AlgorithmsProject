@@ -156,11 +156,11 @@ class Edge{
     }
 
     @Override
-    public double hashCode(){
-        double result = source.hashCode();
+    public int hashCode(){
+        int result = source.hashCode();
         //multiplying by 19 (or just any number, 2019 is when we're free though :') ) should ensure unique hashcodes
         result = 19 * result + dest.hashCode();
-        result = 19 * result + weight;
+        result = (int)(19 * result + weight);
         return result;
     }
 
