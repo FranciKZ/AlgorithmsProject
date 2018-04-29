@@ -1,13 +1,13 @@
 import java.util.stream.Collectors;
 import java.util.*;
 
-public class AlgoGraph{
+public class algoGraph{
     private int vertexCount = 0;
     private List<Vertex> vertices;
     private List<Edge> edges;
     private Map<Vertex, List<Edge>> adjList;
 
-    public AlgoGraph(){
+    public algoGraph(){
         // hashmap will allow for speedier access
         // gotta go fest *insert sanic meme*
         vertices = new ArrayList<Vertex>();
@@ -67,8 +67,8 @@ public class AlgoGraph{
         int result = 0;
         
         for(Edge e : adjList.get(v)){
-            if(e.isChecked)
-                result++
+            if(e.isChecked())
+                result++;
         }
         return result;
     }
@@ -88,8 +88,10 @@ public class AlgoGraph{
 
 class Vertex{
     private int label;
+    public String letter;
 
-    public Vertex(int label){
+    public Vertex(int label, String letter){
+        this.letter = letter;
         setLabel(label);
     }
 
