@@ -1,7 +1,6 @@
 import java.util.*;
 
 public class PathFinder{
-    // soon to be a beautiful path finding program that everyone will adore
     public PathFinder(){
 
     }
@@ -9,32 +8,35 @@ public class PathFinder{
     // i.e. (List = {A, B, C, D} meaning the path is A -> B -> C -> D)
     public List<Vertex> findPath(algoGraph g, Vertex start, double dist){
         List<Vertex> path = new ArrayList<>();
+        List<Vertex> altPath = new ArrayList<>();
         Edge e = null;
         Vertex curVert = start;
         Edge lastEdgeTaken = null;
-        double curDist = 0;
-        int checkCount = 0;
-        path.add(curVert);
-
-        while(curDist <= (dist + 0.25)){
-            e = routeToTake(g.getAdjList().get(curVert));
-            if(e == null){
-                continue;
+        double curDist = 0; 
+        double altDist = 0;
+        altPath.add(curVert);
+        
+        for(int i = 0; i < 25; i++){
+            while(curDist <= (dist + 0.25)){
+                e = routeToTake(g.getAdjList().get(curVert));
+                if(curDist + e.getWeight() <= (dist + 0.25)){
+                    curVert = e.getDest();
+                    altPath.add(curVert);
+                    altDist += e.getWeight(); 
+                    lastEdgeTaken = e;
+                                                    
+                    if(altDist >= (dist - 0.25) && altDist <= (dist + 0.25)){
+                        if(Math.abs(dist - altDist) < Math.abs(dist - curDist)){
+                            path = altPath;
+                            curDist = altDist;
+                        }
+                    } 
+                }
+                else
+                    continue;
             }
-            else if(curDist + e.getWeight() <= (dist + 0.25)){
-                curVert = e.getDest();
-                path.add(curVert);
-                curDist += e.getWeight(); 
-                lastEdgeTaken = e;
-                                                
-                if(curDist >= (dist - 0.25) && curDist <= (dist + 0.25)){
-                    return path;
-                } 
-            }
-            else
-                return findPath(g, start, dist);
         }
-        return null;
+        return path;
     }
 
     // modified binary sort thing
@@ -52,8 +54,6 @@ public class PathFinder{
 
         else if (edges.size() != 0){
             while(low <= high){
-                        // generate the random each time. Will probably change this up but is here to make sure we know to do it 
-                        // on every loop
                 int n = rand.nextInt(51);
                 mid = low + (high - low) / 2;
                 if(n >= 25)
