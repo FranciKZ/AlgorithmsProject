@@ -17,7 +17,7 @@ public class PathFinder{
         for(int i = 0; i < 25; i++){
             altPath.clear();
             altPath.add(curVert);
-            while(curDist <= (dist + 0.25)){
+            while(altDist <= (dist + 0.25)){
                 e = routeToTake(g.getAdjList().get(curVert));
                 if(altDist + e.getWeight() <= (dist + 0.25)){
                     curVert = e.getDest();
