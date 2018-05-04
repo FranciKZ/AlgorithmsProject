@@ -11,20 +11,19 @@ public class PathFinder{
         List<Vertex> altPath = new ArrayList<>();
         Edge e = null;
         Vertex curVert = start;
-        Edge lastEdgeTaken = null;
         double curDist = 0; 
         double altDist = 0;
-        altPath.add(curVert);
         
         for(int i = 0; i < 25; i++){
+            altPath.clear();
+            altPath.add(curVert);
             while(curDist <= (dist + 0.25)){
                 e = routeToTake(g.getAdjList().get(curVert));
-                if(curDist + e.getWeight() <= (dist + 0.25)){
+                if(altDist + e.getWeight() <= (dist + 0.25)){
                     curVert = e.getDest();
                     altPath.add(curVert);
-                    altDist += e.getWeight(); 
-                    lastEdgeTaken = e;
-                                                    
+                    altDist += e.getWeight();
+                                           
                     if(altDist >= (dist - 0.25) && altDist <= (dist + 0.25)){
                         if(Math.abs(dist - altDist) < Math.abs(dist - curDist)){
                             path = altPath;
